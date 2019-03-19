@@ -915,7 +915,8 @@ public class ComponentManager implements AutoCloseable {
 
     protected boolean isContainerClass(final Filter filter, final String name) {
         // workaround until beam is able to have a consistent packaging - i.e. no extensions/io in its core
-        if (excludeClassesFilter.accept(name)) {
+        if (excludeClassesFilter.accept(name) && !name.endsWith("Options")) {
+            // && !name.endsWith("AutoValue_BigQueryIO_TypedRead")) {
             // check if it is beam-sdks-java-core, if so then it is considered as a
             // container class
             final URL resource = ComponentManager.class.getClassLoader().getResource(name.replace('.', '/') + ".class");
